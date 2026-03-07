@@ -1,0 +1,34 @@
+from typing import List
+from collections import Counter
+
+class Solution:
+    def maxOperations(self, nums: List[int], k: int) -> int:
+        # Count frequency of each number
+        count = Counter(nums)
+        
+        operations = 0
+        
+        # Iterate through unique numbers
+        for num in list(count.keys()):
+            complement = k - num
+            
+          
+            if complement == num:
+                continue
+                
+         
+            if complement in count:
+              
+                pairs = min(count[num], count[complement])
+                operations += pairs
+                
+               
+                count[num] -= pairs
+                count[complement] -= pairs
+      
+        if k % 2 == 0:
+            half = k // 2
+            if half in count:
+                operations += count[half] // 2
+        
+        return operations

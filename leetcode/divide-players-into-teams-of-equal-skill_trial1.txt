@@ -1,0 +1,53 @@
+from typing import List
+from collections import Counter
+
+class Solution:
+    def dividePlayers(self, skill: List[int]) -> int:
+        n = len(skill)
+        if n % 2 != 0:
+            return -1
+        
+        total_sum = sum(skill)
+        if total_sum % (n // 2) != 0:
+            return -1
+        
+        
+        target = total_sum // (n // 2)
+        
+        
+        count = Counter(skill)
+        
+        chemistry = 0
+        
+        
+        for s in list(count.keys()):
+          
+            if count[s] == 0:
+                continue
+                
+            complement = target - s
+            
+            if complement == s:
+              
+                if count[s] % 2 != 0:
+                    return -1
+                pairs = count[s] // 2
+                chemistry += pairs * (s * s)
+                count[s] = 0
+            else:
+             
+                if complement not in count or count[complement] == 0:
+                    return -1
+                
+                pairs = min(count[s], count[complement])
+                chemistry += pairs * (s * complement)
+                
+               
+                count[s] -= pairs
+                count[complement] -= pairs
+        
+       
+        if sum(count.values()) > 0:
+            return -1
+        
+        return chemistry

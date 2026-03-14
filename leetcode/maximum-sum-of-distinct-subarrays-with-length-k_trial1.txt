@@ -1,0 +1,38 @@
+from collections import defaultdict
+from typing import List
+
+class Solution:
+    def maximumSubarraySum(self, nums: List[int], k: int) -> int:
+        if k > len(nums):
+            return 0
+        
+        freq = defaultdict(int)
+        current_sum = 0
+        max_sum = 0
+        
+        
+        for i in range(k):
+            freq[nums[i]] += 1
+            current_sum += nums[i]
+        
+    
+        if len(freq) == k:
+            max_sum = current_sum
+        
+     
+        for i in range(k, len(nums)):
+        
+            freq[nums[i]] += 1
+            current_sum += nums[i]
+            
+        
+            left = nums[i - k]
+            freq[left] -= 1
+            if freq[left] == 0:
+                del freq[left]
+            current_sum -= left
+         
+            if len(freq) == k:
+                max_sum = max(max_sum, current_sum)
+        
+        return max_sum

@@ -1,0 +1,24 @@
+from typing import List
+
+class Solution:
+    def maxScore(self, cardPoints: List[int], k: int) -> int:
+        n = len(cardPoints)
+        
+
+        left_prefix = [0] * (k + 1)
+        for i in range(1, k + 1):
+            left_prefix[i] = left_prefix[i - 1] + cardPoints[i - 1]
+        
+       
+        right_prefix = [0] * (k + 1)
+        for i in range(1, k + 1):
+            right_prefix[i] = right_prefix[i - 1] + cardPoints[n - i]
+        
+     
+        max_score = 0
+        for left in range(k + 1):
+            right = k - left
+            current = left_prefix[left] + right_prefix[right]
+            max_score = max(max_score, current)
+        
+        return max_score

@@ -1,0 +1,27 @@
+class Solution:
+    def minimumRecolors(self, blocks: str, k: int) -> int:
+        n = len(blocks)
+        
+     
+        if k == 1:
+            return 0 if 'B' in blocks else 1
+     
+        white_count = 0
+        for i in range(k):
+            if blocks[i] == 'W':
+                white_count += 1
+        
+        min_ops = white_count
+     
+        for i in range(k, n):
+           
+            if blocks[i - k] == 'W':
+                white_count -= 1
+            
+         
+            if blocks[i] == 'W':
+                white_count += 1
+          
+            min_ops = min(min_ops, white_count)
+        
+        return min_ops

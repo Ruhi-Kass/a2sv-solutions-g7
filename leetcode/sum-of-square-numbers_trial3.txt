@@ -1,0 +1,18 @@
+class Solution:
+    def judgeSquareSum(self, c: int) -> bool:
+
+        if c == 0 or c == 1:
+            return True
+        
+        a = 0
+        while a * a <= c:
+            b_squared = c - a * a
+            
+          
+            b = int(b_squared ** 0.5)
+            if b * b == b_squared:
+                return True
+            
+            a += 1
+        
+        return False

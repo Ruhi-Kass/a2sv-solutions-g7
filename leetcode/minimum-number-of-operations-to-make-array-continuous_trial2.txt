@@ -1,0 +1,29 @@
+from typing import List
+
+class Solution:
+    def minOperations(self, nums: List[int]) -> int:
+        n = len(nums)                   
+        if n <= 1:
+            return 0
+        
+        
+        arr = sorted(set(nums))
+        m = len(arr)
+        
+        if m == 0:
+            return 0
+        
+     
+        left = 0
+        max_keep = 0
+        
+        for right in range(m):
+            while arr[right] - arr[left] > n - 1:
+                left += 1
+            
+            
+            curr_len = right - left + 1
+            max_keep = max(max_keep, curr_len)
+        
+      
+        return n - max_keep
